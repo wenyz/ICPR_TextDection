@@ -1,27 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a58fd2b3-ed36-4852-a3ce-90330772a8bc" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/EAST-master.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/EAST-master.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cal_IoU_gt_py.py" beforeDir="false" afterPath="$PROJECT_DIR$/cal_IoU_gt_py.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eval.py" beforeDir="false" afterPath="$PROJECT_DIR$/eval.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/icdar.py" beforeDir="false" afterPath="$PROJECT_DIR$/icdar.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lanms/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/lanms/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lanms/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/lanms/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lanms/include/pybind11/common.h" beforeDir="false" afterPath="$PROJECT_DIR$/lanms/include/pybind11/common.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nets/Inception_ResNet_V2/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/nets/Inception_ResNet_V2/model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nets/Inception_ResNet_V2/nets/cifarnet.py" beforeDir="false" afterPath="$PROJECT_DIR$/nets/Inception_ResNet_V2/nets/cifarnet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nets/resnet_v1.py" beforeDir="false" afterPath="$PROJECT_DIR$/nets/resnet_v1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pickup_hardsample.py" beforeDir="false" afterPath="$PROJECT_DIR$/pickup_hardsample.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_multiscale.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_multiscale.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/tools.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/val_f1score.py" beforeDir="false" afterPath="$PROJECT_DIR$/val_f1score.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/val_f1score_multiscale.py" beforeDir="false" afterPath="$PROJECT_DIR$/val_f1score_multiscale.py" afterDir="false" />
-    </list>
+    <list default="true" id="a58fd2b3-ed36-4852-a3ce-90330772a8bc" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.idea/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
