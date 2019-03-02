@@ -916,5 +916,5 @@ if __name__ == '__main__':
                                batch_size=2 * 1)
 
     images, image_fns, score_maps, geo_maps, training_masks, weights_masks, text_polys_total = next(data_generator)
-    print np.shape(weights_masks), np.max(weights_masks), np.min(weights_masks)
+    print(np.shape(weights_masks), np.max(weights_masks), np.min(weights_masks))
     pass

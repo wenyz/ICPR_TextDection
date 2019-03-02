@@ -2,8 +2,8 @@
 import tensorflow as tf
 from tensorflow.contrib import slim
 import numpy as np
-from nets.inception_resnet_v2 import inception_resnet_v2
-from nets.inception_utils import inception_arg_scope
+from nets.Inception_ResNet_V2.nets import inception_resnet_v2
+from nets.Inception_ResNet_V2.nets.inception_utils import inception_arg_scope
 # tf.app.flags.DEFINE_integer('text_scale', 512, '')
 # tf.app.flags.DEFINE_bool('uppool_conv', False, '')
 
@@ -154,16 +154,16 @@ def loss(y_true_cls, y_pred_cls,
         return L_g + L_s, L_g, L_s
     # elif type_str == 'QUAD':
     elif FLAGS.geometry == 'QUAD':
-        print 'build loss'
-        print y_true_cls
-        print y_true_geo
-        print y_pred_cls
-        print y_pred_geo
-        print training_mask
+        print('build loss')
+        print(y_true_cls)
+        print(y_true_geo)
+        print(y_pred_cls)
+        print(y_pred_geo)
+        print(training_mask)
         classification_loss = dice_coefficient(y_true_cls, y_pred_cls, training_mask)
         # scale classification loss to match the iou loss part
         classification_loss *= 0.25
-        print 'classfication_loss is ', classification_loss
+        print('classfication_loss is ', classification_loss)
         weights = tf.expand_dims((1.0 / (1e-5 + y_true_geo[:, :, :, 8])), axis=3) * y_true_cls * training_mask
         # only calculate the default point order
         # L_g = tf.reduce_mean(
@@ -185,7 +185,7 @@ def loss(y_true_cls, y_pred_cls,
                 tf.expand_dims(gt_geo[:, :, :, (6 + i * 2) % 8], axis=3),
                 tf.expand_dims(gt_geo[:, :, :, (7 + i * 2) % 8], axis=3)
             ], axis=-1)
-            print gt_geo
+            print(gt_geo)
             L_g = tf.reduce_mean(
                 weights * smooth_l1_dist(y_true_cls * training_mask * (y_pred_geo - gt_geo[:, :, :, :8])),
                 reduction_indices=[1, 2, 3])
@@ -196,10 +196,10 @@ def loss(y_true_cls, y_pred_cls,
             else:
                 L_g_min = tf.minimum(L_g_min, L_g)
         L_s = classification_loss
-        print 'Loss of geometry is ', L_g
+        print('Loss of geometry is ', L_g)
         return L_g_min + L_s, L_g_min, L_s
     else:
-        print 'Assign geometry error!'
+        print('Assign geometry error!')
         assert False
 
 if __name__ == '__main__':

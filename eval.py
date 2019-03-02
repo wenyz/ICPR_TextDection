@@ -4,14 +4,16 @@ import math
 import os
 import numpy as np
 import tensorflow as tf
+import tensorflow.contrib.slim as slim
+
 
 import locality_aware_nms as nms_locality
-import lanms
+#import lanms
 
-tf.app.flags.DEFINE_string('test_data_path', '/tmp/ch4_test_images/images/', '')
+tf.app.flags.DEFINE_string('test_data_path', 'E:\\ai\\models\\images', '')
 tf.app.flags.DEFINE_string('gpu_list', '0', '')
-tf.app.flags.DEFINE_string('checkpoint_path', '/tmp/east_icdar2015_resnet_v1_50_rbox/', '')
-tf.app.flags.DEFINE_string('output_dir', '/tmp/ch4_test_images/images/', '')
+tf.app.flags.DEFINE_string('checkpoint_path', 'E:\\ai\\models\\east_icdar2015_resnet_v1_50_rbox_v4', '')
+tf.app.flags.DEFINE_string('output_dir', 'E:\\ai\\models\\images\\result', '')
 tf.app.flags.DEFINE_bool('no_write_images', False, 'do not write images')
 
 import model
@@ -94,8 +96,8 @@ def detect(score_map, geo_map, timer, score_map_thresh=0.8, box_thresh=0.1, nms_
     timer['restore'] = time.time() - start
     # nms part
     start = time.time()
-    # boxes = nms_locality.nms_locality(boxes.astype(np.float64), nms_thres)
-    boxes = lanms.merge_quadrangle_n9(boxes.astype('float32'), nms_thres)
+    boxes = nms_locality.nms_locality(boxes.astype(np.float64), nms_thres)
+    #boxes = lanms.merge_quadrangle_n9(boxes.astype('float32'), nms_thres)
     timer['nms'] = time.time() - start
 
     if boxes.shape[0] == 0:
@@ -141,9 +143,14 @@ def main(argv=None):
         saver = tf.train.Saver(variable_averages.variables_to_restore())
 
         with tf.Session(config=tf.ConfigProto(allow_soft_placement=True)) as sess:
-            ckpt_state = tf.train.get_checkpoint_state(FLAGS.checkpoint_path)
-            model_path = os.path.join(FLAGS.checkpoint_path, os.path.basename(ckpt_state.model_checkpoint_path))
+            ckpt_state = tf.train.get_checkpoint_state('E:\\ai\\models\\east_icdar2015_resnet_v1_50_rbox_v4')
+            model_path = os.path.join('E:\\ai\\models\\east_icdar2015_resnet_v1_50_rbox_v4', os.path.basename(ckpt_state.model_checkpoint_path))
             print('Restore from {}'.format(model_path))
+
+
+            exclude = ['Beta','_CHECKPOINTABLE_OBJECT_GRAPH']
+            variables_to_restore = slim.get_variables_to_restore(exclude=exclude)
+            saver = tf.train.Saver(variables_to_restore)
             saver.restore(sess, model_path)
 
             im_fn_list = get_images()
@@ -180,7 +187,7 @@ def main(argv=None):
                         for box in boxes:
                             # to avoid submitting errors
                             box = sort_poly(box.astype(np.int32))
-                            print np.shape(box)
+                            print(np.shape(box))
                             if np.linalg.norm(box[0] - box[1]) < 5 or np.linalg.norm(box[3]-box[0]) < 5:
                                 continue
                             f.write('{},{},{},{},{},{},{},{}\r\n'.format(

@@ -20,7 +20,7 @@ FLAGS = tf.app.flags.FLAGS
 unpool_idx = 0
 def unpool(inputs):
     if FLAGS.uppool_conv:
-        print 'uppool: uppool_conv'
+        print('uppool: uppool_conv')
         global unpool_idx
         shape = inputs.get_shape().as_list()
         res = tf.image.resize_bilinear(inputs, size=[tf.shape(inputs)[1] * 2, tf.shape(inputs)[2] * 2])
@@ -28,7 +28,7 @@ def unpool(inputs):
         unpool_idx += 1
         return res
     else:
-        print 'uppool: resized'
+        print('uppool: resized')
         return tf.image.resize_bilinear(inputs, size=[tf.shape(inputs)[1]*2,  tf.shape(inputs)[2]*2])
 
 
@@ -94,9 +94,9 @@ def model_InceptionResNet_symmetry(images, weight_decay=1e-5, is_training=True):
     '''
     images = mean_image_subtraction(images)
     logits, end_points = InceptionResNet.model(images, is_training=is_training, weight_decay=weight_decay)
-    print 'end_points is ', end_points
-    print 'end_points key are', end_points.keys()
-    print 'logits is ', logits
+    print('end_points is ', end_points)
+    print('end_points key are', end_points.keys())
+    print('logits is ', logits)
     with tf.variable_scope('feature_fusion', values=[end_points.values]):
         batch_norm_params = {
             'decay': 0.997,
@@ -176,10 +176,10 @@ def model_InceptionResNet_symmetry(images, weight_decay=1e-5, is_training=True):
 
             if is_training:
                 if FLAGS.cross_loss:
-                    print 'loss: cross_loss'
+                    print('loss: cross_loss')
                     F_score = slim.conv2d(g, 1, 1, activation_fn=None, normalizer_fn=None)
                 else:
-                    print 'loss: IoU loss'
+                    print('loss: IoU loss')
                     F_score = slim.conv2d(g, 1, 1, activation_fn=tf.nn.sigmoid, normalizer_fn=None)
             else:
                 F_score = slim.conv2d(g, 1, 1, activation_fn=tf.nn.sigmoid, normalizer_fn=None)
@@ -208,9 +208,9 @@ def model_InceptionResNet(images, weight_decay=1e-5, is_training=True):
     '''
     images = mean_image_subtraction(images)
     logits, end_points = InceptionResNet.model(images, is_training=is_training, weight_decay=weight_decay)
-    print 'end_points is ', end_points
-    print 'end_points key are', end_points.keys()
-    print 'logits is ', logits
+    print('end_points is ', end_points)
+    print('end_points key are', end_points.keys())
+    print('logits is ', logits)
     with tf.variable_scope('feature_fusion', values=[end_points.values]):
         batch_norm_params = {
             'decay': 0.997,
@@ -242,16 +242,16 @@ def model_InceptionResNet(images, weight_decay=1e-5, is_training=True):
                 else:
                     g[i] = slim.conv2d(h[i], num_outputs[i], 3)
                 print('Shape of h_{} {}, g_{} {}'.format(i, h[i].shape, i, g[i].shape))
-            print 'g[', str(g_last - 1), '] shape is ', g[g_last - 1]
+            print('g[', str(g_last - 1), '] shape is ', g[g_last - 1])
             # here we use a slightly different way for regression part,
             # we first use a sigmoid to limit the regression range, and also
             # this is do with the angle map
             if is_training:
                 if FLAGS.cross_loss:
-                    print 'loss: cross_loss'
+                    print('loss: cross_loss')
                     F_score = slim.conv2d(g[g_last - 1], 1, 1, activation_fn=None, normalizer_fn=None)
                 else:
-                    print 'loss: IoU loss'
+                    print('loss: IoU loss')
                     F_score = slim.conv2d(g[g_last - 1], 1, 1, activation_fn=tf.nn.sigmoid, normalizer_fn=None)
             else:
                 F_score = slim.conv2d(g[g_last - 1], 1, 1, activation_fn=tf.nn.sigmoid, normalizer_fn=None)
@@ -282,9 +282,9 @@ def model_InceptionResNet_BLSTM(images, weight_decay=1e-5, is_training=True):
     '''
     images = mean_image_subtraction(images)
     logits, end_points = InceptionResNet.model(images, is_training=is_training, weight_decay=weight_decay)
-    print 'end_points is ', end_points
-    print 'end_points key are', end_points.keys()
-    print 'logits is ', logits
+    print('end_points is ', end_points)
+    print('end_points key are', end_points.keys())
+    print('logits is ', logits)
     with tf.variable_scope('feature_fusion', values=[end_points.values]):
         batch_norm_params = {
             'decay': 0.997,
@@ -325,16 +325,16 @@ def model_InceptionResNet_BLSTM(images, weight_decay=1e-5, is_training=True):
                 else:
                     g[i] = slim.conv2d(h[i], num_outputs[i], 3)
                 print('Shape of h_{} {}, g_{} {}'.format(i, h[i].shape, i, g[i].shape))
-            print 'g[', str(g_last - 1), '] shape is ', g[g_last - 1]
+            print('g[', str(g_last - 1), '] shape is ', g[g_last - 1])
             # here we use a slightly different way for regression part,
             # we first use a sigmoid to limit the regression range, and also
             # this is do with the angle map
             if is_training:
                 if FLAGS.cross_loss:
-                    print 'loss: cross_loss'
+                    print('loss: cross_loss')
                     F_score = slim.conv2d(g[g_last - 1], 1, 1, activation_fn=None, normalizer_fn=None)
                 else:
-                    print 'loss: IoU loss'
+                    print('loss: IoU loss')
                     F_score = slim.conv2d(g[g_last - 1], 1, 1, activation_fn=tf.nn.sigmoid, normalizer_fn=None)
             else:
                 F_score = slim.conv2d(g[g_last - 1], 1, 1, activation_fn=tf.nn.sigmoid, normalizer_fn=None)
@@ -361,9 +361,9 @@ def model(images, weight_decay=1e-5, is_training=True):
 
     with slim.arg_scope(resnet_v1.resnet_arg_scope(weight_decay=weight_decay)):
         logits, end_points = resnet_v1.resnet_v1_50(images, is_training=is_training, scope='resnet_v1_50')
-    print 'end_points is ', end_points
-    print 'end_points key are', end_points.keys()
-    print 'logits is ', logits
+    print('end_points is ', end_points)
+    print('end_points key are', end_points.keys())
+    print('logits is ', logits)
     with tf.variable_scope('feature_fusion', values=[end_points.values]):
         batch_norm_params = {
         'decay': 0.997,
@@ -395,16 +395,16 @@ def model(images, weight_decay=1e-5, is_training=True):
                 else:
                     g[i] = slim.conv2d(h[i], num_outputs[i], 3)
                 print('Shape of h_{} {}, g_{} {}'.format(i, h[i].shape, i, g[i].shape))
-            print 'g[', str(g_last-1), '] shape is ', g[g_last-1]
+            print('g[', str(g_last-1), '] shape is ', g[g_last-1])
             # here we use a slightly different way for regression part,
             # we first use a sigmoid to limit the regression range, and also
             # this is do with the angle map
             if is_training:
                 if FLAGS.cross_loss:
-                    print 'loss: cross_loss'
+                    print('loss: cross_loss')
                     F_score = slim.conv2d(g[g_last-1], 1, 1, activation_fn=None, normalizer_fn=None)
                 else:
-                    print 'loss: IoU loss'
+                    print('loss: IoU loss')
                     F_score = slim.conv2d(g[g_last - 1], 1, 1, activation_fn=tf.nn.sigmoid, normalizer_fn=None)
             else:
                 F_score = slim.conv2d(g[g_last-1], 1, 1, activation_fn=tf.nn.sigmoid, normalizer_fn=None)
@@ -472,13 +472,13 @@ def cross_entropy_EAST(y_true_cls, y_pred_cls, training_mask):
     for i in range(FLAGS.batch_size_per_gpu):
         cur_true = each_y_true_sample[i]
         cur_pred = each_y_pred_sample[i]
-        beta = 1 - (tf.reduce_sum(cur_true) / (FLAGS.input_size * FLAGS.input_size))
+        #beta = 1 - (tf.reduce_sum(cur_true) / (FLAGS.input_size * FLAGS.input_size))
         # cur_loss = -beta * cur_true * tf.log(cur_pred) - (1-beta) * (1-cur_true) * tf.log((1-cur_pred))
         cur_loss = each_loss_sample[i]
         if loss is None:
 
             loss = cur_loss
-            print 'cur_loss is ', loss
+            print('cur_loss is ', loss)
         else:
             loss = tf.concat([loss, cur_loss], axis=0)
     return loss
@@ -495,65 +495,65 @@ def calculate_OHEM_mask_py(y_true_cls, loss_map, only_negative):
     '''
     DEBUG = False
     if DEBUG:
-        print 'ok 0-1'
+        print('ok 0-1')
     weighted_cross_entropy_loss = loss_map
     if DEBUG:
-        print 'ok 0-2'
+        print('ok 0-2')
     batch_size, h, w, c = np.shape(y_true_cls)
     if DEBUG:
-        print 'ok 0-3'
+        print('ok 0-3')
     if DEBUG:
-        print batch_size, h, w, c, np.shape(loss_map)
+        print(batch_size, h, w, c, np.shape(loss_map))
     if DEBUG:
-        print 'ok 0-4'
+        print('ok 0-4')
     OHEM_mask = np.zeros([batch_size, h, w], np.uint8)
     for batch_id in range(batch_size):
         if DEBUG:
-            print 'ok 1'
+            print('ok 1')
         cur_OHEM_mask = np.zeros([h, w], np.uint8)
         if DEBUG:
-            print 'ok 2'
+            print('ok 2')
         cur_weighted_cross_loss = np.asarray(weighted_cross_entropy_loss[batch_id], np.float32)
         if DEBUG:
-            print 'ok 3'
+            print('ok 3')
         cur_y_true_cls = y_true_cls[batch_id]
         if DEBUG:
-            print 'ok 4'
+            print('ok 4')
         S = np.sum(cur_y_true_cls)
         if DEBUG:
-            print 'ok 5'
+            print('ok 5')
 
         negative_num = min(3*S, np.sum(cur_y_true_cls == 0.0))
         if DEBUG:
-            print 'ok 6'
+            print('ok 6')
         indices = np.transpose(np.where(cur_y_true_cls == 0))
         if DEBUG:
-            print 'ok 7', np.shape(cur_y_true_cls), np.shape(cur_weighted_cross_loss)
+            print('ok 7', np.shape(cur_y_true_cls), np.shape(cur_weighted_cross_loss))
         target_loss_value = cur_weighted_cross_loss[cur_y_true_cls == 0]
         if DEBUG:
-            print 'ok 8'
+            print('ok 8')
         indices_sorted = np.asarray(np.argsort(target_loss_value), np.int32)
         if DEBUG:
-            print 'ok 9'
+            print('ok 9')
         indices_sorted = indices_sorted[:int(negative_num)]
         if DEBUG:
-            print 'ok 10'
+            print('ok 10')
         indices_sorted = indices[indices_sorted]
         if DEBUG:
-            print 'ok 11'
+            print('ok 11')
         if not only_negative:
             # 是否只挑选正样本
             cur_OHEM_mask[np.squeeze(cur_y_true_cls) == 1] = 1
         if DEBUG:
-            print 'ok 12'
+            print('ok 12')
         cur_OHEM_mask[indices_sorted] = 1
         if DEBUG:
-            print 'ok 13'
+            print('ok 13')
         OHEM_mask[batch_id] = cur_OHEM_mask
         if DEBUG:
-            print 'ok 14'
+            print('ok 14')
     if DEBUG:
-        print 'ok 15', np.shape(OHEM_mask), np.shape(y_true_cls)
+        print('ok 15', np.shape(OHEM_mask), np.shape(y_true_cls))
     return OHEM_mask
 
 
@@ -571,8 +571,8 @@ def cross_entropy_PixelLink(y_true_cls, y_pred_cls, training_mask, weights_mask)
     y_true_cls = y_true_cls
     y_true_cls_tmp = tf.one_hot(tf.squeeze(tf.cast(y_true_cls, tf.uint8), axis=[3]), axis=3, depth=2)
     y_pred_cls_tmp = tf.concat([1 - y_pred_cls, y_pred_cls], axis=3)
-    print 'y true cls tmp: ', y_true_cls_tmp
-    print 'y_pred_cls_tmp: ', y_pred_cls_tmp
+    print('y true cls tmp: ', y_true_cls_tmp)
+    print('y_pred_cls_tmp: ', y_pred_cls_tmp)
     cross_entropy_loss = tf.nn.softmax_cross_entropy_with_logits(
         labels=y_true_cls_tmp,
         logits=y_pred_cls_tmp)
@@ -589,10 +589,10 @@ def cross_entropy_PixelLink(y_true_cls, y_pred_cls, training_mask, weights_mask)
     OHEM_mask_score.set_shape(y_true_cls.get_shape())
     OHEM_mask_score = tf.cast(OHEM_mask_score, tf.float32)
     # OHEM_mask_score = tf.expand_dims(OHEM_mask_score, axis=3)
-    print 'OHEM mask score: ', OHEM_mask_score
-    print 'y_true_cls: ', y_true_cls
-    print 'weights mask: ', weights_mask
-    print 'cross entropy loss: ', cross_entropy_loss
+    print('OHEM mask score: ', OHEM_mask_score)
+    print('y_true_cls: ', y_true_cls)
+    print('weights mask: ', weights_mask)
+    print('cross entropy loss: ', cross_entropy_loss)
     each_y_true_sample = tf.split(y_true_cls, num_or_size_splits=FLAGS.batch_size_per_gpu, axis=0)
     each_OHEM_mask_score = tf.split(OHEM_mask_score, num_or_size_splits=FLAGS.batch_size_per_gpu, axis=0)
     each_weights_mask = tf.split(weights_mask, num_or_size_splits=FLAGS.batch_size_per_gpu, axis=0)
@@ -603,10 +603,10 @@ def cross_entropy_PixelLink(y_true_cls, y_pred_cls, training_mask, weights_mask)
         cur_y_true = each_y_true_sample[idx]
         cur_weights_mask = each_weights_mask[idx]
         cur_cross_entropy = each_entropy_loss[idx]
-        print 'cur_OHEM_mask', cur_OHEM_mask
-        print 'cur_y_true', cur_y_true
-        print 'cur_weights_mask', cur_weights_mask
-        print 'cur_cross_entropy', cur_cross_entropy
+        print ('cur_OHEM_mask', cur_OHEM_mask)
+        print('cur_y_true', cur_y_true)
+        print('cur_weights_mask', cur_weights_mask)
+        print('cur_cross_entropy', cur_cross_entropy)
         cur_loss = tf.reduce_mean((cur_OHEM_mask * 2.0 + cur_weights_mask) * cur_cross_entropy)
         divided = ((1 + 3.0) * tf.reduce_sum(cur_y_true)) + eps
         cur_loss = cur_loss / divided
@@ -663,12 +663,12 @@ def loss(y_true_cls, y_pred_cls,
     tf.summary.scalar('geometry_theta', tf.reduce_mean(L_theta * y_true_cls * training_mask))
     L_g = L_AABB + 20 * L_theta
     OHEM_mask_geo = tf.cast(tf.py_func(calculate_OHEM_mask_py, [y_true_cls, L_g, False], tf.uint8), tf.float32)
-    print 'OHEM_mask_geo: ', OHEM_mask_geo
+    print('OHEM_mask_geo: ', OHEM_mask_geo)
     if FLAGS.OHEM_GEM:
-        print 'using OHEM GEM'
+        print('using OHEM GEM')
         L_g = L_g * y_true_cls * training_mask * tf.expand_dims(OHEM_mask_geo, axis=3)
     else:
-        print 'not using OHEM GEM'
+        print('not using OHEM GEM')
         L_g = L_g * y_true_cls * training_mask
     if FLAGS.using_instance_balanced:
         L_g = L_g * weights_masks * 6.0

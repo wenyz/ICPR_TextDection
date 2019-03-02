@@ -8,7 +8,10 @@
 */
 
 #pragma once
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "上文得到的错误信息"
+// 代码块
+#pragma clang diagnostic pop
 #if !defined(NAMESPACE_BEGIN)
 #  define NAMESPACE_BEGIN(name) namespace name {
 #endif

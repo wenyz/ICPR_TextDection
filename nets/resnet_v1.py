@@ -211,8 +211,8 @@ def resnet_v1(inputs,
                     end_points['pool4'] = end_points['resnet_v1_50/block2']
                     end_points['conv1_2'] = end_points['model_0/resnet_v1_50/conv1_2']
                     end_points['conv0_2'] = end_points['model_0/resnet_v1_50/conv0_2']
-                except Exception, e:
-                    print e.message
+                except Exception as e:
+                    #print(e.message)
                     end_points['conv1_2'] = end_points['resnet_v1_50/conv1_2']
                     end_points['conv0_2'] = end_points['resnet_v1_50/conv0_2']
                     # end_points['pool3'] = end_points['Detection/resnet_v1_50/block1']

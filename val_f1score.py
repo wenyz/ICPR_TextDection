@@ -11,8 +11,8 @@ import locality_aware_nms as nms_locality
 import lanms
 
 tf.app.flags.DEFINE_string('gpu_list', '0', '')
-tf.app.flags.DEFINE_string('checkpoint_path', '/tmp/east_icdar2015_resnet_v1_50_rbox/', '')
-tf.app.flags.DEFINE_string('output_dir', '/tmp/ch4_test_images/images/', '')
+tf.app.flags.DEFINE_string('checkpoint_path', 'E:\\ai\\models\\east_icdar2015_resnet_v1_50_rbox_v4', '')
+tf.app.flags.DEFINE_string('output_dir', 'E:\\ai\\models\\images\\result', '')
 tf.app.flags.DEFINE_string('pretrained_model_path', None, '')
 tf.app.flags.DEFINE_bool('no_write_images', False, 'do not write images')
 val_img_dir = '/home/give/Game/OCR/data/ICPR/rename/100/image_100'

@@ -27,7 +27,7 @@ def show_image_from_array(image_arr):
 def vis_img_bbox(img_file, gt_file):
     img = cv2.imread(img_file)[:, :, ::-1]
     gtbboxes = np.asarray(read_from_gt(gt_file)[0])
-    print np.shape(gtbboxes)
+    print(np.shape(gtbboxes))
     for box in gtbboxes:
         cv2.polylines(img[:, :, ::-1], [box.astype(np.int32).reshape((-1, 1, 2))], True, color=(255, 255, 0),
                       thickness=1)
@@ -73,7 +73,7 @@ def cal_FN(overlaps, len_gt, threshold=0.7):
     :return:
     '''
     if (len_gt - cal_TP(overlaps, threshold)) < 0:
-        print 'Error, FN is negative'
+        print('Error, FN is negative')
         assert False
     max_value = np.max(overlaps, axis=0)
     return np.sum(max_value < threshold)
@@ -185,4 +185,4 @@ if __name__ == '__main__':
             [80, 93, 77, 195, 483, 195, 483, 92]
         ]
     )
-    print bbox_overlaps(pred_points, gt_points, img_size)
+    print(bbox_overlaps(pred_points, gt_points, img_size))
